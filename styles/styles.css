@@ -9,10 +9,11 @@ body {
     overflow: hidden;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
+    overflow: scroll;
 }
 
 h1 {
-    color: white;
+    color: red;
     margin: 0;
 }
 
@@ -23,6 +24,7 @@ a {
 .page {
     width: 80%;
     margin: 0 auto;
+    background: black;
 }
 
 .header-page {
@@ -38,7 +40,7 @@ a {
 }
 
 .header-menu {
-    margin-left: 75%;
+    margin-left: 65%;
 }
 
 .header-menu ul {
@@ -48,27 +50,51 @@ a {
 }
 
 .header-menu ul li {
-    display: inline;
+    float: right;
+}
+
+.header-menu ul li a {
+    display: block;
+    text-align: center;
     padding: 10px 10px;
-    background: lightblue;
+    text-decoration: none;
 }
 
 .menu {
     height: 40px;
-    display: flex;
-    align-items: center;
+    background: black;
+    /*border: 1px solid white;*/
+}
+
+.activate {
+    background: red;
+    color: white;
+    font-weight: bold;
 }
 
 .menu_left ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
+    overflow: hidden;
 }
 
 .menu_left ul li {
-    display: inline;
-    padding: 10px 10px;
-    background: lightblue;
+    float: left;
+}
+
+.menu_left ul li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.menu_left ul li a:hover {
+    background: darkred;
+    color: white;
+    font-style: italic;
 }
 
 /*.header-menu ul li a {
@@ -84,8 +110,7 @@ a {
     height: 20px;
 }
 
-#canvas {
+#bb {
     width: 100%;
-    height: 600px;
-    background-color: red;
+    height: 320px;
 }
