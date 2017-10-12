@@ -1,6 +1,4 @@
-window.onload = function() {
-   var c =document.getElementById("canvas");
-   var ctx = c.getContext("2d");
-   var img = document.getElementById("bb");
-   ctx.drawImage(img, 0, 0);
-};
+// Script para que el carousel se mueva a determinado tiempo
+$('.carousel').carousel({
+    interval: 1000;
+});
