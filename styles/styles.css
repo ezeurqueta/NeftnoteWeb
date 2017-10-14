@@ -36,13 +36,18 @@ a {
 .header-page {
     background-color: black;
     height: 60px;
-    display: flex;
     align-items: center;
 }
 
 .header-title {
-    margin: 0 20px;
+    margin: 5px 20px;
     text-align: center;
+    float: left;
+}
+
+.header-menu {
+    margin-top: 5px;
+    float: right;
 }
 
 .header-menu ul {
@@ -73,8 +78,6 @@ a {
     background: black;
 }
 
-
-
 .menu ul {
     margin: 0;
     padding: 0;
@@ -102,13 +105,25 @@ a {
     font-style: italic;
 }
 
+.frm {
+float: right;
+}
+
 .searchbar {
     height: 30px;
     float: right;
-    margin-right: 14px;
+    margin-right: 2px;
     width: 100px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+}
+
+.btn_search {
+    height: 30px;
+    float: right;
+    margin-right: 14px;
+    background: red;
+    color: white;
 }
 
 .searchbar:focus {

@@ -29,11 +29,16 @@
         </header>
         <div id="menu" class="menu">
             <ul>
-                <li><a href="#home" id="home" onclick="cargador('home')">Home</a></li>
+                <li><a href="#" id="home" onclick="cargador('home')">Home</a></li>
                 <li><a href="#" id="series" onclick="cargador('series')">Series</a></li>
                 <li><a href="#" id="movies" onclick="cargador('movies')">Movies</a></li>
                 <li><a href="#" id="help" onclick="cargador('help')">Help</a></li>
-                <li ><input type="text" class="searchbar" placeholder="Search..."></li>
+                <li>
+                <!-- <form class="frm" action="index.html"> -->
+                    <button class="btn_search" onclick="cargador('search');">Search</button>
+                    <input id="searchbar" class="searchbar" type="text" placeholder="Search...">
+                <!-- </form> -->
+                </li>
             </ul>
         </div>
         <div class="content" id="el_contenedor">

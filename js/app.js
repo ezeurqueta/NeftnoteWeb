@@ -4,8 +4,33 @@ $('.carousel').carousel({
 });
 
 function cargador(carga) {
-    $("#el_contenedor").load(carga + '.html');
+    if (carga != "search") {
+        $("#el_contenedor").load(carga + '.html');
+        deleteBackground(carga);
+    } else {
+        if (document.getElementById('searchbar').value != ""){
+            $("#el_contenedor").load(carga + '.html');
+            // var what = document.getElementById('searchbar').value;    
+        }
+    }
+}
+
+function deleteBackground(carga) {
+    document.getElementById('home').className = "";
+    document.getElementById('series').className = "";
+    document.getElementById('movies').className = "";
+    document.getElementById('help').className = "";
     document.getElementById(carga).className = "activate";
+    document.getElementById('login').className = "";
+}
+
+function register() {
+    var f_name = document.getElementById('f_name').value;
+    var l_name = document.getElementById('l_name').value;
+    var e_mail = document.getElementById('e_mail').value;
+    var re_pass = document.getElementById('re_pass').value;
+    var re_cpass = document.getElementById('re_cpass').value;
+    // falta parseJSON()
 }
 
 function submit() {
@@ -63,11 +88,12 @@ $( document ).ready(function() {
     document.getElementById('usr_name').style.display = "none";
     document.getElementById('photo').style.display = "none";
 });
+
 // function cargador(el){
 //
 //     console.log(el);
 //     $("#el_contenedor").load(el + '.html');
-//     var list = document.getElementById('menu_left').children[0];
+//     var list = document.getElementById('menu').children[0];
 //     for(var i=0; i<list.children.length; i++){
 //         var cur = list.children[i];
 //         if(el==cur){
