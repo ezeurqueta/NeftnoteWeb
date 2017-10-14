@@ -3,6 +3,7 @@ body,
 .page {
     height: 100%;
     margin: 0;
+    background: black;
 }
 
 body {
@@ -27,7 +28,7 @@ a {
 }
 
 .page {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     background: black;
 }
@@ -62,8 +63,8 @@ a {
 }
 
 #photo {
-    width: 5px;
-    height: 5px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -72,11 +73,7 @@ a {
     background: black;
 }
 
-.activate {
-    background: red;
-    color: white;
-    font-weight: bold;
-}
+
 
 .menu ul {
     margin: 0;
@@ -93,6 +90,12 @@ a {
     color: white;
 }
 
+.activate {
+    background: red;
+    color: white;
+    font-weight: bold;
+}
+
 .menu ul li a:hover {
     background: darkred;
     color: white;
@@ -100,17 +103,31 @@ a {
 }
 
 .searchbar {
-    width: 296px;
     height: 30px;
     float: right;
     margin-right: 14px;
+    width: 100px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.searchbar:focus {
+    width: 560px;
 }
 
 .img-carousel {
     width: 100%;
-    height: 600px;
+    height: 820px;
 }
 
 .content {
     margin-top: 12px;
+}
+
+.btn {
+    color: white;
+}
+
+.card {
+    background: black;
 }

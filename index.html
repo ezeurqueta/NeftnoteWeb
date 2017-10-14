@@ -1,47 +1,54 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-      <meta charset="utf-8">
-      <title>Neftnote</title>
-      <link rel='shortcut icon' type='image/x-icon' href='https://www.netflix.com/favicon.ico'/>
-      <link rel="stylesheet" href="styles/bootstrap.min.css">
-      <link rel="stylesheet" href="styles/styles.css">
-  </head>
-  <body>
-      <div class="page">
-          <header class="header-page">
-              <h1 class="header-title">Neftnote</h1>
-              <div class="header-menu">
-                  <ul>
-                      <li><a href="#" id="usr_name"></a></li>
-                      <li><a href="#" id="photo"><img src=""></img></a></li>
-                      <li><a href="#" id="login" onclick="cargador('login')">Login</a></li>
-                      <li><a href="#" id="signup" onclick="cargador('signUp')">Sign Up</a></li>
-                  </ul>
-              </div>
-          </header>
-          <div id="menu" class="menu">
-              <ul>
-                  <li><a href="#home" class="activate" onclick="cargador('home')">Home</a></li>
-                  <li><a href="#" onclick="cargador('series')">Series</a></li>
-                  <li><a href="#" onclick="cargador('movies')">Movies</a></li>
-                  <li><a href="#" onclick="cargador('help')">Help</a></li>
-                  <li ><input type="text" class="searchbar"></li>
-              </ul>
-          </div>
-          <div class="content" id="el_contenedor">
-          </div>
-          <div class="footer">
-              <ul>
-                  <li><a href="https://github.com/ivanln26">GitHub</a></li>
-                  <li><a href="#">Twitter</a></li>
-                  <li><a href="#">Gmail</a></li>
-              </ul>
-          </div>
-      </div>
-      <script type="text/javascript" src="js/jquery.min.js"></script>
-      <script type="text/javascript" src="js/bootstrap.min.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
-      <script type="text/javascript" src="js/app.js"></script>
-  </body>
+<head>
+    <meta charset="utf-8">
+    <title>Neftnote</title>
+    <link rel='shortcut icon' type='image/x-icon' href='https://www.netflix.com/favicon.ico'/>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="page">
+        <header class="header-page">
+            <h1 class="header-title">Neftnote</h1>
+            <div class="header-menu">
+                <ul>
+                    <!-- <li><a href="#" id="usr_name"></a></li> -->
+                    <li><a href="#"><img id="photo" src=""></img></a></li>
+                    <li><a href="#"><button id="usr_name" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </a></li>
+                    <li><a href="#" id="login" onclick="cargador('login')">Login</a></li>
+                    <li><a href="#" id="signup" onclick="cargador('signUp')">Sign Up</a></li>
+                </ul>
+            </div>
+        </header>
+        <div id="menu" class="menu">
+            <ul>
+                <li><a href="#home" id="home" onclick="cargador('home')">Home</a></li>
+                <li><a href="#" id="series" onclick="cargador('series')">Series</a></li>
+                <li><a href="#" id="movies" onclick="cargador('movies')">Movies</a></li>
+                <li><a href="#" id="help" onclick="cargador('help')">Help</a></li>
+                <li ><input type="text" class="searchbar" placeholder="Search..."></li>
+            </ul>
+        </div>
+        <div class="content" id="el_contenedor">
+        </div>
+        <div class="footer">
+            <ul>
+                <li><a href="https://github.com/ivanln26">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Gmail</a></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
 </html>

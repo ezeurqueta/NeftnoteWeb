@@ -5,6 +5,7 @@ $('.carousel').carousel({
 
 function cargador(carga) {
     $("#el_contenedor").load(carga + '.html');
+    document.getElementById(carga).className = "activate";
 }
 
 function submit() {
@@ -39,9 +40,10 @@ function logGoogle() {
         document.getElementById('signup').style.display = "none";
         document.getElementById('login').style.display = "none";
         document.getElementById('usr_name').style.display = "block";
-        // document.getElementById('photo').style.display = "block";
+        document.getElementById('photo').style.display = "block";
         document.getElementById('usr_name').innerHTML = name;
         document.getElementById('photo').src = photo;
+        cargador("home");
 
     }).catch(function(error) {
         // Handle Errors here.
