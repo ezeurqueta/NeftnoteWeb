@@ -1,7 +1,5 @@
 // Script para que el carousel se mueva a determinado tiempo
-$('.carousel').carousel({
-    interval: 1000
-});
+
 
 function cargador(carga) {
     if (carga != "search") {
@@ -10,18 +8,18 @@ function cargador(carga) {
     } else {
         if (document.getElementById('searchbar').value != ""){
             $("#el_contenedor").load(carga + '.html');
-            // var what = document.getElementById('searchbar').value;    
+            // var what = document.getElementById('searchbar').value;
         }
     }
 }
 
 function deleteBackground(carga) {
-    document.getElementById('home').className = "";
-    document.getElementById('series').className = "";
-    document.getElementById('movies').className = "";
-    document.getElementById('help').className = "";
-    document.getElementById(carga).className = "activate";
-    document.getElementById('login').className = "";
+    let navbar_values = ["home", "series", "movies", "help"];
+    for (var i = 0; i < navbar_values.length; i++) {
+        if (navbar_values[i] == carga) { $("#" + carga).addClass("activate"); }
+        else { $("#" + navbar_values[i]).removeClass("activate"); }
+    }
+    $('#login').removeClass("activate");
 }
 
 function register() {
@@ -62,12 +60,13 @@ function logGoogle() {
         var photo = user.photoURL;
         var email = user.email;
 
-        document.getElementById('signup').style.display = "none";
-        document.getElementById('login').style.display = "none";
-        document.getElementById('usr_name').style.display = "block";
-        document.getElementById('photo').style.display = "block";
-        document.getElementById('usr_name').innerHTML = name;
-        document.getElementById('photo').src = photo;
+        $('#signup').css('display', 'none');
+        $('#login').css('display', 'none');
+        $('#usr_name').css('display', 'block');
+        $('#usr_name').text(name);
+        $('#photo').css('display', 'block');
+        $('#photo').attr('src', photo);
+        $('.photo_href').attr('href', photo);
         cargador("home");
 
     }).catch(function(error) {
@@ -87,29 +86,7 @@ $( document ).ready(function() {
     firebase.initializeApp(config);
     document.getElementById('usr_name').style.display = "none";
     document.getElementById('photo').style.display = "none";
+    $('.carousel').carousel({
+        interval: 1000
+    });
 });
-
-// function cargador(el){
-//
-//     console.log(el);
-//     $("#el_contenedor").load(el + '.html');
-//     var list = document.getElementById('menu').children[0];
-//     for(var i=0; i<list.children.length; i++){
-//         var cur = list.children[i];
-//         if(el==cur){
-//             cur.classList.add("activate");
-//             cur.firstChild.onclick = (function(){
-//                 cargador(this.parentElement);
-//                 return false;
-//             });
-//         } else {
-//             if(cur.classList.contains("activate")){
-//                 cur.classList.remove("activate");
-//             }
-//             cur.firstChild.onclick = (function(){
-//                 cargador(this.parentElement);
-//             });
-//         }
-//     }
-//     console.log(document.getElementById(el));
-// }
