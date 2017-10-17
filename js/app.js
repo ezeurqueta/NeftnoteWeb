@@ -1,6 +1,3 @@
-// Script para que el carousel se mueva a determinado tiempo
-
-
 function cargador(carga) {
     if (carga != "search") {
         $("#el_contenedor").load(carga + '.html');
@@ -20,6 +17,23 @@ function deleteBackground(carga) {
         else { $("#" + navbar_values[i]).removeClass("activate"); }
     }
     $('#login').removeClass("activate");
+}
+
+function hideLogMenu() {
+    $('#login').css('display', 'none');
+    $('#signup').css('display', 'none');
+}
+
+function showLogMenu() {
+    $('.ulist').html('<li><a><button>boton</button></a></li>' +
+    '<li><a style="color:white">Password: <input type="password" style="width: 120px"></a></li>'+
+    '<li><a style="color: white">Username: <input style="width: 120px"></a></li>')
+    // $('.ulist').html('<li><a>Password: <input type="password"></a></li>')
+}
+
+function logMenu() {
+    hideLogMenu();
+    showLogMenu();
 }
 
 function register() {
@@ -54,7 +68,7 @@ function logGoogle() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        console.log(user);
+        // console.log(user);
 
         var name = user.displayName;
         var photo = user.photoURL;
@@ -84,6 +98,8 @@ function logGoogle() {
 $( document ).ready(function() {
     cargador("home");
     firebase.initializeApp(config);
+    // var database = firebase.database();
+    // console.log(firebase.database().refFromURL("https://NeftnoteWeb.firebaseio.com/users"));
     document.getElementById('usr_name').style.display = "none";
     document.getElementById('photo').style.display = "none";
     $('.carousel').carousel({
