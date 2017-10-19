@@ -19,20 +19,20 @@ function deleteBackground(carga) {
     $('#login').removeClass("activate");
 }
 
-function hideLogMenu() {
+function hideOptions() {
     $('#login').css('display', 'none');
     $('#signup').css('display', 'none');
 }
 
 function showLogMenu() {
-    $('.ulist').html('<li><a><button>boton</button></a></li>' +
+    $('.ulist').html('').append('<li><a><input type="image" src="img/google.png" onclick="logGoogle();" width="30" height="30"></input></a></li>' +
+    '<li><a><button>Log In</button></a></li>' +
     '<li><a style="color:white">Password: <input type="password" style="width: 120px"></a></li>'+
     '<li><a style="color: white">Username: <input style="width: 120px"></a></li>')
-    // $('.ulist').html('<li><a>Password: <input type="password"></a></li>')
 }
 
 function logMenu() {
-    hideLogMenu();
+    hideOptions();
     showLogMenu();
 }
 
@@ -51,31 +51,24 @@ function submit() {
     console.log(usr + " " + pass);
 }
 
-var config = {
-   apiKey: "AIzaSyCkN2-SkpibvX6T2bvB5ZtUWZLaQSqNqB0",
-   authDomain: "neftnoteweb.firebaseapp.com",
-   databaseURL: "https://neftnoteweb.firebaseio.com",
-   projectId: "neftnoteweb",
-   storageBucket: "neftnoteweb.appspot.com",
-   messagingSenderId: "117793164770"
- };
-
-var provider = new firebase.auth.GoogleAuthProvider();
-
 function logGoogle() {
+    var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        // console.log(user);
+        console.log(user);
 
         var name = user.displayName;
         var photo = user.photoURL;
         var email = user.email;
 
-        $('#signup').css('display', 'none');
-        $('#login').css('display', 'none');
+        $('.ulist').html('').append("<li><a class='photo_href' href='#'><img id='photo'></img></a></li>" +
+        "<li><a href='#'><button id='usr_name' class='btn btn-secondary dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button></a></li>" +
+        "<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item'>Action</a><a class='dropdown-item'>Action</a><a class='dropdown-item'>Action</a></div>" +
+        "</a></li>");
+
         $('#usr_name').css('display', 'block');
         $('#usr_name').text(name);
         $('#photo').css('display', 'block');
@@ -97,11 +90,28 @@ function logGoogle() {
 
 $( document ).ready(function() {
     cargador("home");
+
+    var config = {
+       apiKey: "AIzaSyCkN2-SkpibvX6T2bvB5ZtUWZLaQSqNqB0",
+       authDomain: "neftnoteweb.firebaseapp.com",
+       databaseURL: "https://neftnoteweb.firebaseio.com",
+       projectId: "neftnoteweb",
+       storageBucket: "neftnoteweb.appspot.com",
+       messagingSenderId: "117793164770"
+     };
+
     firebase.initializeApp(config);
-    // var database = firebase.database();
-    // console.log(firebase.database().refFromURL("https://NeftnoteWeb.firebaseio.com/users"));
-    document.getElementById('usr_name').style.display = "none";
-    document.getElementById('photo').style.display = "none";
+
+    const preObeject = document.getElementById('serie');
+console.log(preObeject);
+
+    const dbRefObject  = firebase.database().ref().child('series');
+
+    // dbRefObject.on('value', snap => console.log(snap.val()));
+    dbRefObject.on('value', snap => {
+        preObeject.innerHTML = JSON.stringify(snap.val(), null, 4);
+    });
+
     $('.carousel').carousel({
         interval: 1000
     });
