@@ -109,7 +109,6 @@ $( document ).ready(function() {
 
     firebase.initializeApp(config);
 
-
     const dbRefObject  = firebase.database().ref().child('series');
 
     // dbRefObject.on('value', snap => console.log(snap.val()));
@@ -124,14 +123,14 @@ $( document ).ready(function() {
         ulList.appendChild(li);
     });
 
-    dbRefObject.om('child_changed', snap => {
+    dbRefObject.on('child_changed', snap => {
         const liChanged = document.getElementById(snap.key);
         liChanged.innerText = snap.val();
     });
 
-    dbRefObject.om('child_remove', snap => {
+    dbRefObject.on('child_removed', snap => {
         const liToRemove = document.getElementById(snap.key);
-        liChanged.remove();
+        liToRemove.remove();
     });
 
     $('.carousel').carousel({
