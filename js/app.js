@@ -1,3 +1,19 @@
+// variables y constantes
+
+var config = {
+   apiKey: "AIzaSyCkN2-SkpibvX6T2bvB5ZtUWZLaQSqNqB0",
+   authDomain: "neftnoteweb.firebaseapp.com",
+   databaseURL: "https://neftnoteweb.firebaseio.com",
+   projectId: "neftnoteweb",
+   storageBucket: "neftnoteweb.appspot.com",
+   messagingSenderId: "117793164770"
+ };
+
+const preObeject = document.getElementById('serie');
+const ulList = document.getElementById('serie-list');
+
+// funciones
+
 function cargador(carga) {
     if (carga != "search") {
         $("#el_contenedor").load(carga + '.html');
@@ -91,25 +107,31 @@ function logGoogle() {
 $( document ).ready(function() {
     cargador("home");
 
-    var config = {
-       apiKey: "AIzaSyCkN2-SkpibvX6T2bvB5ZtUWZLaQSqNqB0",
-       authDomain: "neftnoteweb.firebaseapp.com",
-       databaseURL: "https://neftnoteweb.firebaseio.com",
-       projectId: "neftnoteweb",
-       storageBucket: "neftnoteweb.appspot.com",
-       messagingSenderId: "117793164770"
-     };
-
     firebase.initializeApp(config);
 
-    const preObeject = document.getElementById('serie');
-console.log(preObeject);
 
     const dbRefObject  = firebase.database().ref().child('series');
 
     // dbRefObject.on('value', snap => console.log(snap.val()));
     dbRefObject.on('value', snap => {
-        preObeject.innerHTML = JSON.stringify(snap.val(), null, 4);
+        preObeject.innerText = JSON.stringify(snap.val(), null, 4);
+    });
+
+    dbRefObject.on('child_added', snap => {
+        const li = document.createElement('li');
+        li.innerText = snap.val();
+        li.id = snap.key;
+        ulList.appendChild(li);
+    });
+
+    dbRefObject.om('child_changed', snap => {
+        const liChanged = document.getElementById(snap.key);
+        liChanged.innerText = snap.val();
+    });
+
+    dbRefObject.om('child_remove', snap => {
+        const liToRemove = document.getElementById(snap.key);
+        liChanged.remove();
     });
 
     $('.carousel').carousel({
