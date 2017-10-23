@@ -42,6 +42,7 @@ function hideOptions() {
 
 function showLogMenu() {
     $('.ulist').html('').append('<li><a><input type="image" src="img/google.png" onclick="logGoogle();" width="30" height="30"></input></a></li>' +
+    "<li><a><button onclick='cargador()'>Register</button></a></li>" +
     '<li><a><button>Log In</button></a></li>' +
     '<li><a style="color:white">Password: <input type="password" style="width: 120px"></a></li>'+
     '<li><a style="color: white">Username: <input style="width: 120px"></a></li>')
@@ -53,12 +54,28 @@ function logMenu() {
 }
 
 function register() {
-    var f_name = document.getElementById('f_name').value;
-    var l_name = document.getElementById('l_name').value;
-    var e_mail = document.getElementById('e_mail').value;
-    var re_pass = document.getElementById('re_pass').value;
-    var re_cpass = document.getElementById('re_cpass').value;
-    // falta parseJSON()
+    var usr_name = $('#txt_usr_name').val();
+    var f_name = $('#txt_f_name').val();
+    var l_name = $('#txt_l_name').val();
+    var e_mail = $('#txt_e_mail').val();
+    var phone = $('#txt_phone').val();
+    var re_pass = $('#txt_re_pass').val();
+    var re_cpass = $('#txt_re_cpass').val();
+
+    var db_register = firebase.database();
+
+    db_register.ref('/users/').push({
+        'f_name':f_name,
+        'l_name':l_name,
+        'e_mail':e_mail,
+        'phone':phone,
+        'pass':re_pass
+    });
+    // db_register.ref('/users/' + usr_name + '/f_name').set(f_name);
+    // db_register.ref('/users/' + usr_name + '/l_name').set(l_name);
+    // db_register.ref('/users/' + usr_name + '/e_mail').set(e_mail);
+    // db_register.ref('/users/' + usr_name + '/phone').set(phone);
+    // db_register.ref('/users/' + usr_name + '/pass').set(re_pass);
 }
 
 function submit() {

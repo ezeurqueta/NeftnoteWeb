@@ -33,6 +33,8 @@ a {
     background: black;
 }
 
+/* index.html */
+
 .header-page {
     background-color: black;
     height: 70px;
@@ -119,6 +121,10 @@ float: right;
     transition: width 0.4s ease-in-out;
 }
 
+.searchbar:focus {
+    width: 560px;
+}
+
 .btn_search {
     margin-top: 10px;
     height: 30px;
@@ -128,17 +134,15 @@ float: right;
     color: white;
 }
 
-.searchbar:focus {
-    width: 560px;
+.content {
+    margin-top: 12px;
 }
+
+/* home.html */
 
 .img-carousel {
     width: 100%;
     height: 820px;
-}
-
-.content {
-    margin-top: 12px;
 }
 
 .btn {
