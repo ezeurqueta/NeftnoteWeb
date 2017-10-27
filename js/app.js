@@ -121,33 +121,75 @@ function logGoogle() {
     });
 }
 
+// function loadSeries() {
+//     const dbSeries = firebase.database().ref('/series/');
+//
+//     dbSeries.on('value', snapshot => {
+//         snapshot.forEach(snap => {
+//             const h3 = document.createElement('h3');
+//             h3.innerText = snap.val();
+//             document.getElementById('series').appendChild(h3);
+//         })
+//     });
+//
+//     dbSeries.on('child_added', snapshot => {
+//         snapshot.forEach(snap => {
+//             const h3 = document.createElement('h3');
+//             h3.innerText = snap.val();
+//             h3.id = snap.key;
+//             ulList.appendChild(li);
+//         })
+//     });
+//
+//     dbSeries.on('child_changed', snapshot => {
+//         snapshot.forEach(snap => {
+//             const h3Changed = document.getElementById(snap.key);
+//             liChanged.innerText = snap.val();
+//         })
+//     });
+//
+//     dbSeries.on('child_removed', snapshot => {
+//         snapshot.forEach(snap => {
+//             const h3ToRemove = document.getElementById(snap.key);
+//             h3ToRemove.remove();
+//         })
+//     });
+// }
+
 $( document ).ready(function() {
     cargador("home");
 
     firebase.initializeApp(config);
 
-    const dbRefObject  = firebase.database().ref().child('series');
+    const dbRefObject = firebase.database().ref('/series/');
 
-    // dbRefObject.on('value', snap => console.log(snap.val()));
-    dbRefObject.on('value', snap => {
-        preObeject.innerText = JSON.stringify(snap.val(), null, 4);
+    dbRefObject.on('value', snapshot => {
+        snapshot.forEach(snap => {
+            preObeject.innerText = JSON.stringify(snap.val(), null, 4);
+        })
     });
 
-    dbRefObject.on('child_added', snap => {
-        const li = document.createElement('li');
-        li.innerText = snap.val();
-        li.id = snap.key;
-        ulList.appendChild(li);
+    dbRefObject.on('child_added', snapshot => {
+        snapshot.forEach(snap => {
+            const li = document.createElement('li');
+            li.innerText = snap.val();
+            li.id = snap.key;
+            ulList.appendChild(li);
+        })
     });
 
-    dbRefObject.on('child_changed', snap => {
-        const liChanged = document.getElementById(snap.key);
-        liChanged.innerText = snap.val();
+    dbRefObject.on('child_changed', snapshot => {
+        snapshot.forEach(snap => {
+            const liChanged = document.getElementById(snap.key);
+            liChanged.innerText = snap.val();
+        })
     });
 
-    dbRefObject.on('child_removed', snap => {
-        const liToRemove = document.getElementById(snap.key);
-        liToRemove.remove();
+    dbRefObject.on('child_removed', snapshot => {
+        snapshot.forEach(snap => {
+            const liToRemove = document.getElementById(snap.key);
+            liToRemove.remove();
+        })
     });
 
     $('.carousel').carousel({
