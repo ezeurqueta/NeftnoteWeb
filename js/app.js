@@ -1,21 +1,15 @@
-// variables y constantes
-
-var config = {
-   apiKey: "AIzaSyCkN2-SkpibvX6T2bvB5ZtUWZLaQSqNqB0",
-   authDomain: "neftnoteweb.firebaseapp.com",
-   databaseURL: "https://neftnoteweb.firebaseio.com",
-   projectId: "neftnoteweb",
-   storageBucket: "neftnoteweb.appspot.com",
-   messagingSenderId: "117793164770"
- };
-
-const preObeject = document.getElementById('serie');
-const ulList = document.getElementById('serie-list');
-
 // funciones
 
 function cargador(carga) {
-    if (carga != "search") {
+    if (carga == "series"){
+        $("#el_contenedor").load(carga + '.html' ,  function( response, status ) {
+              if ( status != "error" ) {
+                  console.log("here");
+                  loadSeries();
+              }
+          });
+        deleteBackground(carga);
+    } else if (carga != "search") {
         $("#el_contenedor").load(carga + '.html');
         deleteBackground(carga);
     } else {
@@ -121,76 +115,41 @@ function logGoogle() {
     });
 }
 
-// function loadSeries() {
-//     const dbSeries = firebase.database().ref('/series/');
-//
-//     dbSeries.on('value', snapshot => {
-//         snapshot.forEach(snap => {
-//             const h3 = document.createElement('h3');
-//             h3.innerText = snap.val();
-//             document.getElementById('series').appendChild(h3);
-//         })
-//     });
-//
-//     dbSeries.on('child_added', snapshot => {
-//         snapshot.forEach(snap => {
-//             const h3 = document.createElement('h3');
-//             h3.innerText = snap.val();
-//             h3.id = snap.key;
-//             ulList.appendChild(li);
-//         })
-//     });
-//
-//     dbSeries.on('child_changed', snapshot => {
-//         snapshot.forEach(snap => {
-//             const h3Changed = document.getElementById(snap.key);
-//             liChanged.innerText = snap.val();
-//         })
-//     });
-//
-//     dbSeries.on('child_removed', snapshot => {
-//         snapshot.forEach(snap => {
-//             const h3ToRemove = document.getElementById(snap.key);
-//             h3ToRemove.remove();
-//         })
-//     });
-// }
+function loadSeries() {
+    var series = $('#series_list');
+
+    var dbSeries = firebase.database().ref('/series/');
+    dbSeries.on('value', snapshot => {
+        snapshot.forEach(snap => {
+            var div = document.createElement('div');
+            var input = document.createElement('input');
+            var h2 = document.createElement('h2');
+            input.type = "image";
+            input.src = snap.val().photoURL;
+            input.style.width = "320px";
+            input.style.height = "400px";
+            input.onclick = e => {cargador('serie')};
+            h2.innerText = snap.val().name;
+            h2.style.position = "absolute";
+            div.append(input);
+            div.append(h2);
+            series.append(div);
+        })
+    })
+}
 
 $( document ).ready(function() {
-    cargador("home");
-
+    var config = {
+       apiKey: "AIzaSyCkN2-SkpibvX6T2bvB5ZtUWZLaQSqNqB0",
+       authDomain: "neftnoteweb.firebaseapp.com",
+       databaseURL: "https://neftnoteweb.firebaseio.com",
+       projectId: "neftnoteweb",
+       storageBucket: "neftnoteweb.appspot.com",
+       messagingSenderId: "117793164770"
+     };
     firebase.initializeApp(config);
 
-    const dbRefObject = firebase.database().ref('/series/');
-
-    dbRefObject.on('value', snapshot => {
-        snapshot.forEach(snap => {
-            preObeject.innerText = JSON.stringify(snap.val(), null, 4);
-        })
-    });
-
-    dbRefObject.on('child_added', snapshot => {
-        snapshot.forEach(snap => {
-            const li = document.createElement('li');
-            li.innerText = snap.val();
-            li.id = snap.key;
-            ulList.appendChild(li);
-        })
-    });
-
-    dbRefObject.on('child_changed', snapshot => {
-        snapshot.forEach(snap => {
-            const liChanged = document.getElementById(snap.key);
-            liChanged.innerText = snap.val();
-        })
-    });
-
-    dbRefObject.on('child_removed', snapshot => {
-        snapshot.forEach(snap => {
-            const liToRemove = document.getElementById(snap.key);
-            liToRemove.remove();
-        })
-    });
+    cargador("home");
 
     $('.carousel').carousel({
         interval: 1000
