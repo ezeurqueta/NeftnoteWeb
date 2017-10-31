@@ -4,7 +4,6 @@ function cargador(carga) {
     if (carga == "series"){
         $("#el_contenedor").load(carga + '.html' ,  function( response, status ) {
               if ( status != "error" ) {
-                  console.log("here");
                   loadSeries();
               }
           });
@@ -123,19 +122,36 @@ function loadSeries() {
         snapshot.forEach(snap => {
             var div = document.createElement('div');
             var input = document.createElement('input');
-            var h2 = document.createElement('h2');
+            div.classList = "col-lg-3 col-md-4 col-sm-6 portfolio-item";
             input.type = "image";
             input.src = snap.val().photoURL;
             input.style.width = "320px";
             input.style.height = "400px";
-            input.onclick = e => {cargador('serie')};
-            h2.innerText = snap.val().name;
-            h2.style.position = "absolute";
+            input.onclick = e => {loadInfo(snap.key)};
             div.append(input);
-            div.append(h2);
             series.append(div);
         })
     })
+}
+
+function loadInfo(x) {
+    $("#el_contenedor").load("serie.html", function( response, status ) {
+          if ( status != "error" ) {
+              var dbX = firebase.database().ref("/series/" + x);
+              dbX.on('value', snap => {
+                  var info = document.getElementById("info");
+                  var input = document.createElement("input");
+                  var h2 = document.createElement("h2");
+                  input.type = "image";
+                  input.src = snap.val().photoURL;
+                  input.style.width = "320px";
+                  input.style.height = "400px";
+                  h2.innerText = snap.val().name;
+                  info.append(input);
+                  info.append(h2);
+              })
+          }
+      });
 }
 
 $( document ).ready(function() {
