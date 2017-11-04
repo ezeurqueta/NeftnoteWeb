@@ -127,28 +127,33 @@ function loadSeries() {
             input.src = snap.val().photoURL;
             input.style.width = "320px";
             input.style.height = "400px";
-            input.onclick = e => {loadInfo(snap.key)};
+            input.style.marginLeft = "10px";
+            input.onclick = e => {loadInfoSerie(snap.key)};
             div.append(input);
             series.append(div);
         })
     })
 }
 
-function loadInfo(x) {
+function loadInfoSerie(series) {
     $("#el_contenedor").load("serie.html", function( response, status ) {
           if ( status != "error" ) {
-              var dbX = firebase.database().ref("/series/" + x);
+              const dbX = firebase.database().ref("/series/" + series);
               dbX.on('value', snap => {
-                  var info = document.getElementById("info");
-                  var input = document.createElement("input");
-                  var h2 = document.createElement("h2");
+                  let info = document.getElementById("info");
+                  let input = document.createElement("input");
+                //   let h2 = document.createElement("h2");
+                //   h2.innerText = "Title" + snap.val().name;
+                //   info.append(h2);
+
                   input.type = "image";
                   input.src = snap.val().photoURL;
                   input.style.width = "320px";
                   input.style.height = "400px";
-                  h2.innerText = snap.val().name;
                   info.append(input);
-                  info.append(h2);
+
+                  $("#name").text("Title: " + snap.val().name);
+                  $("#director").text("Director: " + snap.val().director);
               })
           }
       });
