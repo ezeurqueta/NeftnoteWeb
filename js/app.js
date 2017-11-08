@@ -4,25 +4,28 @@ var user;
 
 function cargador(carga) {
     if (carga == "series"){
-        $("#el_contenedor").load(carga + '.html' ,  function( response, status ) {
+        $("#el_contenedor").load(carga + '.html',  function(response, status) {
               if ( status != "error" ) {
                   loadSeries();
               }
           });
         deleteBackground(carga);
     } else if (carga == "movies"){
-        $("#el_contenedor").load(carga + '.html' ,  function( response, status ) {
+        $("#el_contenedor").load(carga + '.html',  function(response, status) {
               if ( status != "error" ) {
                   loadMovies();
               }
           });
         deleteBackground(carga);
     } else if (carga == "profile") {
-        $("#el_contenedor").load(carga + '.html' ,  function( response, status ) {
+        $("#el_contenedor").load(carga + '.html',  function(response, status) {
               if ( status != "error" ) {
                   showProfile(user);
               }
           });
+    } else if (carga == "help"){
+        $("#el_contenedor").load(carga + '.html');
+        deleteBackground(carga);
     } else if (carga != "search") {
         $("#el_contenedor").load(carga + '.html');
         deleteBackground(carga);
@@ -145,12 +148,10 @@ function loadSeries() {
         snapshot.forEach(snap => {
             let div = document.createElement('div');
             let input = document.createElement('input');
-            div.classList = "col-lg-3 col-md-4 col-sm-6 portfolio-item";
+            div.classList = "col-lg-3 portfolio-item";
             input.type = "image";
             input.src = snap.val().photoURL;
-            input.style.width = "320px";
-            input.style.height = "400px";
-            input.style.marginLeft = "10px";
+            input.classList.add("list-cont");
             input.onclick = e => {loadInfoSerie(snap.key)};
             div.append(input);
             series.append(div);
@@ -165,14 +166,9 @@ function loadInfoSerie(serie) {
             dbX.on('value', snap => {
                 let info = document.getElementById("info");
                 let input = document.createElement("input");
-                    //   let h2 = document.createElement("h2");
-                    //   h2.innerText = "Title" + snap.val().name;
-                    //   info.append(h2);
-
                 input.type = "image";
                 input.src = snap.val().photoURL;
-                input.style.width = "320px";
-                input.style.height = "400px";
+                input.classList.add("info");
                 info.append(input);
                 $("#name").text("Title: " + snap.val().name);
                 $("#director").text("Director: " + snap.val().director);
@@ -192,9 +188,7 @@ function loadMovies() {
             div.classList = "col-lg-3 col-md-4 col-sm-6 portfolio-item";
             input.type = "image";
             input.src = snap.val().photoURL;
-            input.style.width = "320px";
-            input.style.height = "400px";
-            input.style.marginLeft = "10px";
+            input.classList.add("list-cont");
             input.onclick = e => {loadInfoMovie(snap.key)};
             div.append(input);
             movies.append(div);
@@ -209,14 +203,9 @@ function loadInfoMovie(movie) {
             dbX.on('value', snap => {
                 let info = document.getElementById("info");
                 let input = document.createElement("input");
-                    //   let h2 = document.createElement("h2");
-                    //   h2.innerText = "Title" + snap.val().name;
-                    //   info.append(h2);
-
                 input.type = "image";
                 input.src = snap.val().photoURL;
-                input.style.width = "320px";
-                input.style.height = "400px";
+                input.classList.add("info");
                 info.append(input);
                 $("#name").text("Title: " + snap.val().name);
                 $("#director").text("Director: " + snap.val().director);

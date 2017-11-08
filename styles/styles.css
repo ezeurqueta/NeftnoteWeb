@@ -80,7 +80,7 @@ a {
 }
 
 .menu {
-    height: 40px;
+    height: 52px;
     background: black;
 }
 
@@ -112,7 +112,7 @@ a {
 }
 
 .frm {
-float: right;
+    float: right;
 }
 
 .searchbar {
@@ -139,7 +139,7 @@ float: right;
 }
 
 .content {
-    margin-top: 12px;
+    width: 100%;
 }
 
 /* home.html */
@@ -155,4 +155,15 @@ float: right;
 
 .card {
     background: black;
+}
+
+.list-cont {
+    width: 320px;
+    height: 400px;
+    /*margin-left: 0;*/
+}
+
+.info {
+    width: 320px;
+    height: 400px;
 }
