@@ -6,14 +6,14 @@ function loader(carga) {
     if (carga == "series"){
         $("#el_contenedor").load(carga + '.html',  function(response, status) {
               if ( status != "error" ) {
-                  loadSeries();
+                  loadList("series");
               }
           });
         deleteBackground(carga);
     } else if (carga == "movies"){
         $("#el_contenedor").load(carga + '.html',  function(response, status) {
               if ( status != "error" ) {
-                  loadMovies();
+                  loadList("movies");
               }
           });
         deleteBackground(carga);
@@ -62,7 +62,7 @@ function searchX(x) {
                 input.type = "image";
                 input.src = snap.val().photoURL;
                 input.classList.add("list-cont");
-                input.onclick = e => {loadInfoSerie(snap.key)};
+                input.onclick = e => {loadInfo(x, snap.key)};
                 div.append(input);
                 search.append(div);
             }
@@ -173,10 +173,8 @@ function showProfile(user) {
     $('#profile_name').text('Profile name: ' + user.displayName)
 }
 
-function loadSeries() {
-    let series = $('#series_list');
-
-    let dbSeries = firebase.database().ref('/series/');
+function loadList(x) {
+    let dbSeries = firebase.database().ref(`/${x}/`);
     dbSeries.on('value', snapshot => {
         snapshot.forEach(snap => {
             let div = document.createElement('div');
@@ -185,54 +183,17 @@ function loadSeries() {
             input.type = "image";
             input.src = snap.val().photoURL;
             input.classList.add("list-cont");
-            input.onclick = e => {loadInfoSerie(snap.key)};
+            input.onclick = e => {loadInfo(x, snap.key)};
             div.append(input);
-            series.append(div);
+            $(`#${x}_list`).append(div);
         })
-    })
-}
-
-function loadInfoSerie(serie) {
-    $("#el_contenedor").load("serie.html", function( response, status ) {
-        if ( status != "error" ) {
-            const dbX = firebase.database().ref("/series/" + serie);
-            dbX.on('value', snap => {
-                let info = document.getElementById("info");
-                let input = document.createElement("input");
-                input.type = "image";
-                input.src = snap.val().photoURL;
-                input.classList.add("info");
-                info.append(input);
-                $("#name").text("Title: " + snap.val().name);
-                $("#director").text("Director: " + snap.val().director);
-            })
-        }
     });
 }
 
-function loadMovies() {
-    let movies = $('#movies_list');
-
-    const dbMovies = firebase.database().ref('/movies/');
-    dbMovies.on('value', snapshot => {
-        snapshot.forEach(snap => {
-            let div = document.createElement('div');
-            let input = document.createElement('input');
-            div.classList = "col-lg-3 col-md-4 col-sm-6 portfolio-item";
-            input.type = "image";
-            input.src = snap.val().photoURL;
-            input.classList.add("list-cont");
-            input.onclick = e => {loadInfoMovie(snap.key)};
-            div.append(input);
-            movies.append(div);
-        })
-    })
-}
-
-function loadInfoMovie(movie) {
-    $("#el_contenedor").load("movie.html", function( response, status ) {
+function loadInfo(x, key) {
+    $("#el_contenedor").load("info.html", function( response, status ) {
         if ( status != "error" ) {
-            const dbX = firebase.database().ref("/movies/" + movie);
+            const dbX = firebase.database().ref(`/${x}/` + key);
             dbX.on('value', snap => {
                 let info = document.getElementById("info");
                 let input = document.createElement("input");
@@ -243,6 +204,7 @@ function loadInfoMovie(movie) {
                 $("#name").text("Title: " + snap.val().name);
                 $("#director").text("Director: " + snap.val().director);
             })
+            $("#btn_back").attr("onclick", `loader('${x}')`)
         }
     });
 }

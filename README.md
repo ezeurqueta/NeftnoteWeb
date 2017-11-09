@@ -8,6 +8,8 @@
 
 ## **Descripción**
 
-### *Imágenes*
-
 ### *Dependencias*
+
+* Bootstrap
+* Firebase
+* JSON

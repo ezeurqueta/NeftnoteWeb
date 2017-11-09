@@ -31,6 +31,11 @@ a {
     text-decoration: none;
 }
 
+hr {
+    background: white;
+    margin-top: 2px;
+}
+
 .page {
     width: 100%;
     margin: 0 auto;
