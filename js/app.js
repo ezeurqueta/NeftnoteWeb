@@ -2,7 +2,7 @@ var user;
 
 // funciones
 
-function cargador(carga) {
+function loader(carga) {
     if (carga == "series"){
         $("#el_contenedor").load(carga + '.html',  function(response, status) {
               if ( status != "error" ) {
@@ -37,6 +37,39 @@ function cargador(carga) {
     }
 }
 
+function search() {
+    if ($("#searchbar").val() != "") {
+        $("#el_contenedor").load('search.html', function(res, status) {
+            if (status != "error") {
+                deleteBackground();
+                searchX("series")
+                searchX("movies");
+            }
+        });
+    }
+}
+
+function searchX(x) {
+    let value = $("#searchbar").val();
+    let search = $(`#${x}_search`);
+    const fbdb = firebase.database().ref(`/${x}/`);
+    fbdb.on("value", snapshot => {
+        snapshot.forEach(snap => {
+            if (snap.val().name.toLowerCase().includes(value)) {
+                let div = document.createElement('div');
+                let input = document.createElement('input');
+                div.classList = "col-lg-3 portfolio-item";
+                input.type = "image";
+                input.src = snap.val().photoURL;
+                input.classList.add("list-cont");
+                input.onclick = e => {loadInfoSerie(snap.key)};
+                div.append(input);
+                search.append(div);
+            }
+        })
+    });
+}
+
 function deleteBackground(carga) {
     let navbar_values = ["home", "series", "movies", "help"];
     for (let i = 0; i < navbar_values.length; i++) {
@@ -53,7 +86,7 @@ function hideOptions() {
 
 function showLogMenu() {
     $('.ulist').html('').append('<li><a><input type="image" src="img/google.png" onclick="logGoogle();" width="30" height="30"></input></a></li>' +
-    "<li><a><button onclick='cargador()'>Register</button></a></li>" +
+    "<li><a><button onclick='loader()'>Register</button></a></li>" +
     '<li><a><button>Log In</button></a></li>' +
     '<li><a style="color:white">Password: <input type="password" style="width: 120px"></a></li>'+
     '<li><a style="color: white">Username: <input style="width: 120px"></a></li>')
@@ -116,8 +149,8 @@ function logGoogle() {
         $('#usr_name').text(name);
         $('#photo').css('display', 'block');
         $('#photo').attr('src', photo);
-        $('.photo_href').attr('onclick', "cargador('profile')");
-        cargador("home");
+        $('.photo_href').attr('onclick', "loader('profile')");
+        loader("home");
 
     }).catch(function(error) {
         // Handle Errors here.
@@ -225,7 +258,13 @@ $( document ).ready(function() {
      };
     firebase.initializeApp(config);
 
-    cargador("home");
+    loader("home");
+
+    $("#searchbar").keypress((e) => {
+        if (e.keyCode == 13) {
+            search();
+        }
+    });
 
     $('.carousel').carousel({
         interval: 100
