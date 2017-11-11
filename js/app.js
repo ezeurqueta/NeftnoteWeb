@@ -58,13 +58,15 @@ function searchX(x) {
             if (snap.val().name.toLowerCase().includes(value)) {
                 let div = document.createElement('div');
                 let input = document.createElement('input');
-                div.classList = "col-lg-3 portfolio-item";
+                div.classList = "col-lg-2 portfolio-item";
                 input.type = "image";
                 input.src = snap.val().photoURL;
                 input.classList.add("list-cont");
                 input.onclick = e => {loadInfo(x, snap.key)};
                 div.append(input);
                 search.append(div);
+                $(`#${x}_title`).attr("class", "");
+                $(`#${x}_line`).attr("class", "");
             }
         })
     });
@@ -179,7 +181,7 @@ function loadList(x) {
         snapshot.forEach(snap => {
             let div = document.createElement('div');
             let input = document.createElement('input');
-            div.classList = "col-lg-3 portfolio-item";
+            div.classList = "col-lg-2 portfolio-item";
             input.type = "image";
             input.src = snap.val().photoURL;
             input.classList.add("list-cont");

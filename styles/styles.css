@@ -6,6 +6,18 @@ body,
     background: black;
 }
 
+* {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+
 body {
     overflow: hidden;
     font-family: 'Open Sans', sans-serif;
@@ -162,10 +174,20 @@ hr {
     background: black;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
 .list-cont {
     width: 320px;
     height: 400px;
-    /*margin-left: 0;*/
+
 }
 
 .info {
