@@ -87,7 +87,7 @@ function hideOptions() {
 }
 
 function showLogMenu() {
-    $('.ulist').html('').append('<li><a><input type="image" src="img/google.png" onclick="logGoogle();" width="30" height="30"></input></a></li>' +
+    $('.ulist').append('<li><a><input type="image" src="img/google.png" onclick="logGoogle();" width="30" height="30"></input></a></li>' +
     "<li><a><button onclick='loader()'>Register</button></a></li>" +
     '<li><a><button>Log In</button></a></li>' +
     '<li><a style="color:white">Password: <input type="password" style="width: 120px"></a></li>'+
@@ -139,8 +139,27 @@ function logGoogle() {
         user = result.user;
 
         let name = user.displayName;
-        let photo = user.photoURL;
         let email = user.email;
+        let photo = user.photoURL;
+
+        let emails = [];
+
+        firebase.database().ref('/users/').once('value', snap => {
+            snap.forEach(s => {
+                emails.push(s.val().e_mail);
+            })
+            if (emails.includes(email)) {
+                alert("Logged");
+            } else {
+                firebase.database().ref('/users/').push({
+                    'name': name,
+                    'e_mail': email
+                });
+                alert("Account created");
+            }
+        });
+
+
 
         $('.ulist').html('').append("<li><a class='photo_href' href='#'><img id='photo'></img></a></li>" +
         "<li><a href='#'><button id='usr_name' class='btn btn-secondary dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button></a></li>" +
