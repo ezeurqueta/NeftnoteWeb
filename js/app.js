@@ -19,6 +19,7 @@ function loader(carga) {
         $("#el_contenedor").load(carga + '.html',  function(response, status) {
               if ( status != "error" ) {
                   showProfile(user);
+                  loadPStatus();
               }
           });
     } else if (carga == "help"){
@@ -142,44 +143,29 @@ function submit() {
 function logGoogle() {
     let provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
+
         let token = result.credential.accessToken;
-        // The signed-in user info.
         user = result.user;
 
         let name = user.displayName;
         let email = user.email;
         let photo = user.photoURL;
-
         let emails = [];
-        let keys = [];
 
         firebase.database().ref('/users/').once('value', snap => {
             snap.forEach(s => {
                 emails.push(s.val().e_mail);
-                console.log(s.key);
-                keys.push(s.key);
             })
             if (emails.includes(email)) {
                 alert("Logged");
-                console.log(keys);
             } else {
                 firebase.database().ref('/users/').push({
                     'name': name,
-                    'e_mail': email,
-                    'profile': {
-
-                    }
+                    'e_mail': email
                 });
                 alert("Account created");
-console.log(keys);
             }
         });
-
-        // $('.ulist').html('').append("<li><a class='photo_href' href='#'><img id='photo'></img></a></li>" +
-        // "<li><a href='#'><button id='usr_name' class='btn btn-secondary dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button></a></li>" +
-        // "<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item'>Action</a><a class='dropdown-item'>Action</a><a class='dropdown-item'>Action</a></div>" +
-        // "</a></li>");
 
         const li_img = document.createElement('li');
         const a = document.createElement('a');
@@ -294,8 +280,39 @@ function resetProfile() {
     $('.ulist').append(liS);
 }
 
+function loadPStatus() {
+    const dbPS = firebase.database().ref("/users/-Kyugf-5puWTOWI95N57/profile/status/");
+    dbPS.on('value', snap => {
+        console.log(snap.val().watching);
+        console.log(snap.val().tEntries);
+        let pwatching = snap.val().watching / snap.val().tEntries * 100;
+        let pcompleated = snap.val().compleated / snap.val().tEntries * 100;
+        let ponhold = snap.val().on_hold / snap.val().tEntries * 100;
+        let pdropped = snap.val().dropped / snap.val().tEntries * 100;
+        let pptw = snap.val().ptw / snap.val().tEntries * 100;
+
+        console.log(pwatching);
+        console.log(pcompleated);
+        console.log(ponhold);
+        console.log(pdropped);
+        console.log(pptw);
+
+        $('.watching').css({'width': `${pwatching}%`});
+        $('.compleated').css({'width': `${pcompleated}%`});
+        $('.onhold').css({'width': `${ponhold}%`});
+        $('.dropped').css({'width': `${pdropped}%`});
+        $('.ptw').css({'width': `${pptw}%`});
+
+        $('#nwatching').text(snap.val().watching);
+        $('#ncompleated').text(snap.val().compleated);
+        $('#nonhold').text(snap.val().on_hold);
+        $('#ndropped').text(snap.val().dropped);
+        $('#nptw').text(snap.val().ptw);
+    });
+}
+
 function loadList(x) {
-    let dbSeries = firebase.database().ref(`/${x}/`);
+    const dbSeries = firebase.database().ref(`/${x}/`);
     dbSeries.on('value', snapshot => {
         snapshot.forEach(snap => {
             let div = document.createElement('div');
@@ -333,7 +350,7 @@ function loadInfo(x, key) {
 }
 
 function loadInfoUser(key) {
-    const db_user = firebase.database().ref('/users/-Kys7TX0xQy6DVKRFNCl/profile/' + key);
+    const db_user = firebase.database().ref('/users/-Kyugf-5puWTOWI95N57/profile/content/' + key);
     db_user.on('value', snap => {
         $(`#sm_status option:contains(${snap.val().status})`).attr('selected', true);
     });
@@ -343,12 +360,52 @@ function updateProfile() {
     if (user != undefined) {
         console.log("updated");
         let sm_status = $("#sm_status option:selected").text();
-        console.log(smkey);
-        const db_user = firebase.database().ref('/users/-Kys7TX0xQy6DVKRFNCl/profile');
+        const db_user = firebase.database().ref('/users/-Kyugf-5puWTOWI95N57/profile/content/');
         db_user.update({
             [smkey]: {
                 'status': sm_status
             }
+        });
+
+        let watching = 0, compleated = 0, on_hold = 0, dropped = 0, ptw = 0;
+        const dbCSuma = firebase.database().ref("/users/-Kyugf-5puWTOWI95N57/profile/content/");
+        dbCSuma.on("value", snapshot => {
+            // console.log(snapshot.val().status);
+            snapshot.forEach(snap => {
+                console.log(snap.val().status);
+                switch (snap.val().status) {
+                    case "Watching":
+                        watching++;
+                        console.log(watching);
+                        break;
+                    case "Compleated":
+                        compleated++;
+                        console.log(compleated);
+                        break;
+                    case "On-Hold":
+                        on_hold++;
+                        console.log(on_hold);
+                        break;
+                    case "Dropped":
+                        dropped++;
+                        console.log(dropped);
+                        break;
+                    case "Plan To Watch":
+                        ptw++;
+                        console.log(ptw);
+                        break;
+                }
+            })
+        });
+        let tEntries = watching + compleated + on_hold + dropped + ptw;
+        const dbPS = firebase.database().ref("/users/-Kyugf-5puWTOWI95N57/profile/status/");
+        dbPS.update({
+            "compleated": compleated,
+            "dropped": dropped,
+            "on_hold": on_hold,
+            "ptw": ptw,
+            "tEntries": tEntries,
+            "watching": watching
         });
     } else {
         console.log("nope");

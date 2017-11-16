@@ -242,3 +242,106 @@ hr {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+/* Profile styles */
+.profile-status {
+    width: 500px;
+    height: 230px;
+    background-color: black;
+}
+
+.profile-status ul {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.profile-status li {
+    position: relative;
+    color: white;
+}
+
+.pbar-content {
+    width: 100%;
+    height: 50px;
+}
+
+.pbar {
+    height: 50px;
+    margin: 0;
+    position: static;
+    display: block;
+    float: left;
+}
+
+.watching {
+    background-color: #33cc66;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.compleated {
+    background-color: blue;
+}
+
+.onhold {
+    background-color: yellow;
+}
+
+.dropped {
+    background-color: red;
+}
+
+.ptw {
+    background-color: grey;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.pbar-leyend {
+    width: 400px;
+    height: 180px;
+    position: absolute;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    border-radius: 10px;
+    text-indent: 30px;
+}
+
+.circle, li {
+    font-family: "Arial", Serif;
+}
+
+.cwatching {
+    background-color: #33cc66;
+}
+
+.ccompleated {
+    background-color: blue;
+}
+
+.conhold {
+    background-color: yellow;
+}
+
+.cdropped {
+    background-color: red;
+}
+
+.cptw {
+    background-color: grey;
+}
+
+.pbar-numbers {
+    position: absolute;
+    width: 100px;
+    height: 180px;
+    margin-left: 400px;
+}
+
+.pbar-numbers ul, li {
+    color: black;
+}
