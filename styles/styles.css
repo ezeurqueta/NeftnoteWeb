@@ -26,6 +26,10 @@ body {
     overflow: scroll;
 }
 
+.footer {
+    text-align: center;
+}
+
 h1 {
     color: red;
     margin: 0;
@@ -193,11 +197,6 @@ hr {
 
 }
 
-.info {
-    width: 320px;
-    height: 400px;
-}
-
 /* Dropdown Button */
 .dropbtn {
     background-color: red;
@@ -344,4 +343,53 @@ hr {
 
 .pbar-numbers ul, li {
     color: black;
+}
+
+.info_flex {
+    display: inline-flex;
+}
+
+.img_info {
+    width: 500px;
+    height: 600px;
+}
+
+#img_info {
+    width: 500px;
+    height: 600px;
+    margin-left: 20px;
+}
+
+.info {
+    width: 300px;
+    height: 600px;
+    margin-left: 10px;
+    /*background-color: red;*/
+}
+
+.info > button {
+    width: 120px;
+    height: 26px;
+    margin-bottom: 5px;
+    border: 0;
+}
+
+.info > select {
+    width: 120px!important;
+    height: 26px!important;
+    margin-bottom: 5px;
+    padding: 1px 6px 1px 6px;
+    border: 0;
+}
+
+.info > input {
+    width: 120!important;
+    margin-bottom: 5px;
+}
+
+.description {
+    width: 800px;
+    height: 600px;
+    color: white;
+    /*background-color: violet;*/
 }

@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 
-<div>
-    <button id="btn_back">Back</button>
-    <div id="info">
+<div class="info_flex">
+    <div id="img_info">
 
     </div>
-    <select id="sm_status">
-        <option></option>
-        <option>Watching</option>
-        <option>Compleated</option>
-        <option>On-Hold</option>
-        <option>Dropped</option>
-        <option>Plan To Watch</option>
-    </select><br>
-    <input type="number"><br>
-    <button id="update" type="button" onclick="updateProfile();">Update</button>
+    <div class="info">
+        <button id="btn_back">Back</button><br>
+        <select id="sm_status">
+            <option></option>
+            <option>Watching</option>
+            <option>Compleated</option>
+            <option>On-Hold</option>
+            <option>Dropped</option>
+            <option>Plan To Watch</option>
+        </select><br>
+        <input id="eWatched" type="number" min="0"><br>
+        <button id="update" type="button" onclick="updateProfile();">Update</button>
+        <div>
+            <p><b id="name"></b></p>
+            <p id="director"></p>
+            <p id="age"></p>
+            <p id="seasons"></p>
+            <p id="show_status"></p>
+        </div>
+    </div>
     <div class="description">
-        <p id="name"></p>
-        <p id="director"></p>
-        <p id="seasons"></p>
+        <h1 style="color: white;">Synopsis</h1>
+        <p id="description"></p>
     </div>
 </div>

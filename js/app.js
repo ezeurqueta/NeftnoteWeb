@@ -333,14 +333,21 @@ function loadInfo(x, key) {
         if ( status != "error" ) {
             const dbX = firebase.database().ref(`/${x}/` + key);
             dbX.on('value', snap => {
-                let info = document.getElementById("info");
+                let info = document.getElementById("img_info");
                 let input = document.createElement("input");
                 input.type = "image";
                 input.src = snap.val().photoURL;
-                input.classList.add("info");
+                input.classList.add("img_info");
                 info.append(input);
                 $("#name").text("Title: " + snap.val().name);
                 $("#director").text("Director: " + snap.val().director);
+                $('#age').text('Age: ' + snap.val().age);
+                if (snap.val().serie == true) {
+                    $('#eWatched').attr('max', snap.val().nEpisodes);
+                    $('#seasons').text('Seasons: ' + snap.val().nSeasons);
+                    $('#show_status').text('Status: ' + snap.val().show_status);
+                }
+                $('#description').text(snap.val().synopsis);
             })
             $("#btn_back").attr("onclick", `loader('${x}')`);
             smkey = key;
@@ -353,6 +360,7 @@ function loadInfoUser(key) {
     const db_user = firebase.database().ref('/users/-Kyugf-5puWTOWI95N57/profile/content/' + key);
     db_user.on('value', snap => {
         $(`#sm_status option:contains(${snap.val().status})`).attr('selected', true);
+        $('#eWatched').val(snap.val().eWatched);
     });
 }
 
@@ -360,10 +368,12 @@ function updateProfile() {
     if (user != undefined) {
         console.log("updated");
         let sm_status = $("#sm_status option:selected").text();
+        let eWatched = $('#eWatched').val();
         const db_user = firebase.database().ref('/users/-Kyugf-5puWTOWI95N57/profile/content/');
         db_user.update({
             [smkey]: {
-                'status': sm_status
+                'status': sm_status,
+                'eWatched': eWatched
             }
         });
 
@@ -376,27 +386,23 @@ function updateProfile() {
                 switch (snap.val().status) {
                     case "Watching":
                         watching++;
-                        console.log(watching);
                         break;
                     case "Compleated":
                         compleated++;
-                        console.log(compleated);
                         break;
                     case "On-Hold":
                         on_hold++;
-                        console.log(on_hold);
                         break;
                     case "Dropped":
                         dropped++;
-                        console.log(dropped);
                         break;
                     case "Plan To Watch":
                         ptw++;
-                        console.log(ptw);
                         break;
                 }
             })
         });
+
         let tEntries = watching + compleated + on_hold + dropped + ptw;
         const dbPS = firebase.database().ref("/users/-Kyugf-5puWTOWI95N57/profile/status/");
         dbPS.update({
