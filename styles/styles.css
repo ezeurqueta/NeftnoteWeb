@@ -26,10 +26,6 @@ body {
     overflow: scroll;
 }
 
-.footer {
-    text-align: center;
-}
-
 h1 {
     color: red;
     margin: 0;
@@ -138,7 +134,7 @@ hr {
 }
 
 .searchbar {
-    height: 30px;
+    height: 24px;
     float: right;
     margin-top: 10px;
     margin-right: 2px;
@@ -346,17 +342,18 @@ hr {
 }
 
 .info_flex {
+    width: 100%;
     display: inline-flex;
 }
 
 .img_info {
-    width: 500px;
-    height: 600px;
+    width: 400px;
+    height: 500px;
 }
 
 #img_info {
-    width: 500px;
-    height: 600px;
+    width: 400px;
+    height: 500px;
     margin-left: 20px;
 }
 
@@ -388,8 +385,13 @@ hr {
 }
 
 .description {
-    width: 800px;
+    width: 550px;
     height: 600px;
     color: white;
     /*background-color: violet;*/
+}
+
+/* footer */
+.footer {
+    text-align: center;
 }

@@ -22,9 +22,6 @@ function loader(carga) {
                   loadPStatus();
               }
           });
-    } else if (carga == "help"){
-        $("#el_contenedor").load(carga + '.html');
-        deleteBackground(carga);
     } else {
         $("#el_contenedor").load(carga + '.html');
         deleteBackground(carga);
@@ -52,7 +49,7 @@ function searchX(x) {
             if (snap.val().name.toLowerCase().includes(value)) {
                 let div = document.createElement('div');
                 let input = document.createElement('input');
-                div.classList = "col-lg-2 portfolio-item";
+                div.classList = "col-lg-3 portfolio-item";
                 input.type = "image";
                 input.src = snap.val().photoURL;
                 input.classList.add("list-cont");
@@ -83,7 +80,7 @@ $('#searchbar').keyup( e => {
 });
 
 function deleteBackground(carga) {
-    let navbar_values = ["home", "series", "movies", "help"];
+    let navbar_values = ["home", "series", "movies"];
     for (let i = 0; i < navbar_values.length; i++) {
         if (navbar_values[i] == carga) { $("#" + carga).addClass("activate"); }
         else { $("#" + navbar_values[i]).removeClass("activate"); }
@@ -291,12 +288,6 @@ function loadPStatus() {
         let pdropped = snap.val().dropped / snap.val().tEntries * 100;
         let pptw = snap.val().ptw / snap.val().tEntries * 100;
 
-        console.log(pwatching);
-        console.log(pcompleated);
-        console.log(ponhold);
-        console.log(pdropped);
-        console.log(pptw);
-
         $('.watching').css({'width': `${pwatching}%`});
         $('.compleated').css({'width': `${pcompleated}%`});
         $('.onhold').css({'width': `${ponhold}%`});
@@ -317,7 +308,7 @@ function loadList(x) {
         snapshot.forEach(snap => {
             let div = document.createElement('div');
             let input = document.createElement('input');
-            div.classList = "col-lg-2 portfolio-item";
+            div.classList = "col-lg-3 portfolio-item";
             input.type = "image";
             input.src = snap.val().photoURL;
             input.classList.add("list-cont");
